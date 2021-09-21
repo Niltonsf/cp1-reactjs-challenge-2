@@ -1,6 +1,6 @@
 import { SideBar } from './components/SideBar';
 import { Content } from './components/Content';
-import { MovieProvider } from './MovieContext';
+import { useState } from 'react';
 
 import './styles/global.scss';
 import './styles/sidebar.scss';
@@ -8,12 +8,16 @@ import './styles/content.scss';
 
 export function App() {
 
+	const [selectedGenreId, setSelectedGenreId] = useState(1);
+
+	function handleClickButton(id: number) {
+    setSelectedGenreId(id);
+  }
+
   return (
-		<MovieProvider>
-			<div style={{ display: 'flex', flexDirection: 'row' }}>
-				<SideBar />
-				<Content />
-			</div>
-		</MovieProvider>
+		<div style={{ display: 'flex', flexDirection: 'row' }}>
+			<SideBar selectedGenreId={selectedGenreId} handleClickButton={handleClickButton}/>
+			<Content selectedGenreId={selectedGenreId}/>
+		</div>
   );
 }
